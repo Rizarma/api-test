@@ -1,0 +1,25 @@
+{
+    "name": "loket-api-test",
+    "version": "1.0.0",
+    "description": "legacy & rest api testing",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com"
+    },
+    "author": "Rizki Arya Malik",
+    "license": "ISC",
+    "dependencies": {
+        "chai": "^4.1.2",
+        "dotenv": "^5.0.1",
+        "mocha": "^5.0.4",
+        "supertest": "^3.0.0"
+    },
+    "devDependencies": {
+        "eslint-config-airbnb": "^16.1.0",
+        "prettier-eslint": "^8.8.1"
+    }
+}
