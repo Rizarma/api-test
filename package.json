@@ -4,7 +4,9 @@
     "description": "legacy & rest api testing",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npx mocha",
+        "old": "npx mocha test/legacy_api.js",
+        "rest": "npx mocha test/rest_api.js"
     },
     "repository": {
         "type": "git",
