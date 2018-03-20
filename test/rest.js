@@ -9,6 +9,7 @@ const host = supertest(process.env.REST_API_HOST);
 describe("REST API Test", () => {
     let auth_header;
     let order_token;
+    let id_attendee;
 
     it("should be authenticated", done => {
         host
@@ -38,6 +39,32 @@ describe("REST API Test", () => {
             .end((err, res) => {
                 expect(res.body.result.token).to.not.equal(null);
                 order_token = res.body.result.token;
+                done();
+            });
+    });
+
+    it("should be able to book order", done => {
+        host
+            .post("/order/book")
+            .set("Authorization", auth_header)
+            .send({
+                id_ticket: 1125,
+                qty: 1,
+                token: order_token
+            })
+            .end((err, res) => {
+                expect(res.body.result.id_invoice).to.not.equal(null);
+                expect(res.body.result.id_order).to.not.equal(null);
+                expect(res.body.result.invoice_code).to.not.equal(null);
+                expect(res.body.result.tickets[0].id_transaction).to.not.equal(
+                    null
+                );
+                expect(res.body.result.attendees[0].id_attendee).to.not.equal(
+                    null
+                );
+
+                id_attendee = res.body.result.attendees[0].id_attendee;
+
                 done();
             });
     });
