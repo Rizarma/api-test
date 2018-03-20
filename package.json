@@ -4,9 +4,12 @@
     "description": "legacy & rest api testing",
     "main": "index.js",
     "scripts": {
-        "test": "npx mocha",
-        "legacy": "npx mocha test/legacy.js",
-        "rest": "npx mocha test/rest.js"
+        "test":
+            "npx mocha --reporter mocha-multi-reporters --reporter-options configFile=report.config.json",
+        "legacy":
+            "npx mocha test/legacy.js --reporter mocha-multi-reporters --reporter-options configFile=report.config.json",
+        "rest":
+            "npx mocha test/rest.js --reporter mocha-multi-reporters --reporter-options configFile=report.config.json"
     },
     "repository": {
         "type": "git",
@@ -18,6 +21,8 @@
         "chai": "^4.1.2",
         "dotenv": "^5.0.1",
         "mocha": "^5.0.4",
+        "mocha-junit-reporter": "^1.17.0",
+        "mocha-multi-reporters": "^1.1.7",
         "supertest": "^3.0.0"
     },
     "devDependencies": {
