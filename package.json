@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "npx mocha",
-        "old": "npx mocha test/legacy_api.js",
-        "rest": "npx mocha test/rest_api.js"
+        "legacy": "npx mocha test/legacy.js",
+        "rest": "npx mocha test/rest.js"
     },
     "repository": {
         "type": "git",
