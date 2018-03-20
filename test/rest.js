@@ -11,6 +11,7 @@ describe("REST API Test", () => {
     let order_token;
     let order_id_attendee;
     let order_invoice_payment_total;
+    let order_status_invoice_name;
 
     it("should be authenticated", done => {
         host
@@ -107,6 +108,26 @@ describe("REST API Test", () => {
                 ).to.not.equal(null);
                 order_invoice_payment_total =
                     res.body.result.invoice.invoice_payment_total;
+                done();
+            });
+    });
+
+    it("should be able to confirm order", done => {
+        host
+            .post("/order/confirm")
+            .set("Authorization", auth_header)
+            .send({
+                token: order_token,
+                id_list_payment: 21,
+                price_total: order_invoice_payment_total,
+                send_email: 0
+            })
+            .end((err, res) => {
+                expect(res.body.result.id_invoice).to.not.equal(null);
+                expect(res.body.result.id_order).to.not.equal(null);
+                expect(res.body.result.invoice_code).to.not.equal(null);
+                expect(res.body.result.status_invoice_name).to.not.equal(null);
+                order_status_invoice_name = res.body.result.status_invoice_name;
                 done();
             });
     });
