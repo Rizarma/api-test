@@ -9,7 +9,7 @@ const host = supertest(process.env.REST_API_HOST);
 describe("REST API Test", () => {
     let auth_header;
     let order_token;
-    let id_attendee;
+    let order_id_attendee;
 
     it("should be authenticated", done => {
         host
@@ -62,9 +62,36 @@ describe("REST API Test", () => {
                 expect(res.body.result.attendees[0].id_attendee).to.not.equal(
                     null
                 );
+                order_id_attendee = res.body.result.attendees[0].id_attendee;
+                done();
+            });
+    });
 
-                id_attendee = res.body.result.attendees[0].id_attendee;
-
+    it("should be able to assign attendee", done => {
+        host
+            .post("/order/attendee")
+            .set("Authorization", auth_header)
+            .send({
+                token: order_token,
+                id_attendee: order_id_attendee,
+                firstname: process.env.ATTENDEE_FIRSTNAME,
+                lastname: process.env.ATTENDEE_LASTNAME,
+                email: process.env.ATTENDEE_EMAIL,
+                telephone: process.env.ATTENDEE_TELEPHONE,
+                identity_id: process.env.ATTENDEE_IDENTITY_ID,
+                gender: process.env.ATTENDEE_GENDER,
+                dob: process.env.ATTENDEE_DOB
+            })
+            .end((err, res) => {
+                expect(res.body.result.id_invoice).to.not.equal(null);
+                expect(res.body.result.id_order).to.not.equal(null);
+                expect(res.body.result.invoice_code).to.not.equal(null);
+                expect(res.body.result.tickets[0].id_transaction).to.not.equal(
+                    null
+                );
+                expect(res.body.result.attendees[0].id_attendee).to.not.equal(
+                    null
+                );
                 done();
             });
     });

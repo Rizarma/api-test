@@ -40,9 +40,9 @@ describe("Legacy API Test", () => {
                         }
                     ],
                     attendee: {
-                        firstname: "Legacy",
-                        lastname: "API Test",
-                        email: "rizki.arya@loket.com"
+                        firstname: process.env.ATTENDEE_FIRSTNAME,
+                        lastname: process.env.ATTENDEE_LASTNAME,
+                        email: process.env.ATTENDEE_EMAIL
                     },
                     order_id: "API" + timestamp,
                     expiration_type: "1",
