@@ -13,7 +13,7 @@ describe("REST API Test", () => {
     let order_invoice_payment_total;
     let order_status_invoice_name;
 
-    it("should be authenticated", done => {
+    it("should be able to authenticate", done => {
         host
             .get(
                 "/authentication/generate?client_id=" +
@@ -50,7 +50,7 @@ describe("REST API Test", () => {
             .post("/order/book")
             .set("Authorization", auth_header)
             .send({
-                id_ticket: 1125,
+                id_ticket: process.env.REST_API_ID_TICKET,
                 qty: 1,
                 token: order_token
             })
@@ -100,7 +100,12 @@ describe("REST API Test", () => {
 
     it("should be able to get payment rates", done => {
         host
-            .get("/order?token=" + order_token + "&id_list_payment=21")
+            .get(
+                "/order?token=" +
+                    order_token +
+                    "&id_list_payment=" +
+                    process.env.PAYMENT_CASH
+            )
             .set("Authorization", auth_header)
             .end((err, res) => {
                 expect(
