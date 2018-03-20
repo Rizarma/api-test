@@ -10,6 +10,7 @@ describe("REST API Test", () => {
     let auth_header;
     let order_token;
     let order_id_attendee;
+    let order_invoice_payment_total;
 
     it("should be authenticated", done => {
         host
@@ -92,6 +93,20 @@ describe("REST API Test", () => {
                 expect(res.body.result.attendees[0].id_attendee).to.not.equal(
                     null
                 );
+                done();
+            });
+    });
+
+    it("should be able to get payment rates", done => {
+        host
+            .get("/order?token=" + order_token + "&id_list_payment=21")
+            .set("Authorization", auth_header)
+            .end((err, res) => {
+                expect(
+                    res.body.result.invoice.invoice_payment_total
+                ).to.not.equal(null);
+                order_invoice_payment_total =
+                    res.body.result.invoice.invoice_payment_total;
                 done();
             });
     });
